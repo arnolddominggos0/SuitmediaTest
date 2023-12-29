@@ -41,5 +41,6 @@ class SecondScreenActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val USERNAME = "username" }
+        const val USERNAME = "username"
+    }
 }

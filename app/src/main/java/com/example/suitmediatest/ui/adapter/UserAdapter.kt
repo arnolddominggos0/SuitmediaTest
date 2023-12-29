@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.suitmediatest.R
 import com.example.suitmediatest.databinding.ItemUserBinding
 import com.example.suitmediatest.model.User
+import com.example.suitmediatest.network.UserApi
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
@@ -18,18 +19,19 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private val binding: ItemUserBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemUserBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(user: User) {
-            binding.tvEmail.text = user.email
-            binding.tvFirstName.text = user.firstName
-            binding.tvLastName.text = user.lastName
-            Glide.with(binding.root)
-                .load(user.avatar)
+        fun bind(user: User) = with(binding) {
+            tvEmail.text = user.email
+            tvFirstName.text = user.first_name
+            tvLastName.text = user.last_name
+            Glide.with(ivUser.context)
+                .load(UserApi.getUserUrl(user.avatar))
                 .placeholder(R.drawable.baseline_account_circle_24)
                 .error(R.drawable.baseline_broken_image_24)
-                .into(binding.ivUser)
+                .into(ivUser)
         }
     }
 

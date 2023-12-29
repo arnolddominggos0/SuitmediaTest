@@ -25,7 +25,7 @@ class FirstScreenActivity : AppCompatActivity() {
 
                 if (inputText.isNotEmpty()) {
                     val isPalindrome = isPalindrome(inputText)
-                    MainDialog(isPalindrome).show(supportFragmentManager, null) // Tampilkan dialog
+                    MainDialog(isPalindrome).show(supportFragmentManager, null)
                 } else {
                     Toast.makeText(
                         this@FirstScreenActivity,
