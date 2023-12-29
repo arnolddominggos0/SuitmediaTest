@@ -17,7 +17,7 @@ class SecondScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        binding.toolbar.setNavigationOnClickListener { onBackPressed() } // Handle back button click
+        binding.toolbar.setNavigationOnClickListener { onBackPressed() }
 
         setData()
 
@@ -41,6 +41,5 @@ class SecondScreenActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val USERNAME = "username"
-    }
+        const val USERNAME = "username" }
 }

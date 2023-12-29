@@ -15,4 +15,9 @@
     <string name="user">Arnold</string>
     <string name="selected_user_name">Selected User Name</string>
     <string name="choose_user">Choose a User</string>
+    <string name="email">email@email.com</string>
+    <string name="lastname">Lastname</string>
+    <string name="firstname">Firstname</string>
+    <string name="thirdScreen">Third Screen</string>
+    <string name="koneksi_error">Koneksi Error</string>
 </resources>
