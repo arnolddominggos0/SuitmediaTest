@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">SuitmediaTest</string>
+    <string name="app_name">Suitmedia Test App</string>
+    <string name="avatar">Avatar</string>
+    <string name="name">Name</string>
+    <string name="next">NEXT</string>
+    <string name="check">CHECK</string>
+    <string name="palindrome">Palindrome</string>
+    <string name="ok">OK</string>
+    <string name="is_palindrome">It\'s, Palindrome!</string>
+    <string name="isnt_palindrome">It\'s not, Palindrome!</string>
+    <string name="empty_palindrome">Palindrome can\'t empty.</string>
+    <string name="empty_name">Name can\'t empty.</string>
 </resources>
