@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.suitmediatest.R
 import com.example.suitmediatest.databinding.ActivityFirstScreenBinding
 import com.example.suitmediatest.ui.dialog.MainDialog
-import com.example.suitmediatest.ui.main.secondscreen.SecondScreenActivity
+import com.example.suitmediatest.ui.secondscreen.SecondScreenActivity
 
 class FirstScreenActivity : AppCompatActivity() {
 
@@ -38,6 +38,10 @@ class FirstScreenActivity : AppCompatActivity() {
 
                 if (nameET.isNotEmpty()) {
                     val intent = Intent(this@FirstScreenActivity, SecondScreenActivity::class.java)
+                    intent.putExtra(
+                        SecondScreenActivity.USERNAME,
+                        nameET
+                    )
                     startActivity(intent)
                 } else {
                     Toast.makeText(

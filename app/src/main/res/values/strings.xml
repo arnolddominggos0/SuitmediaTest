@@ -10,4 +10,9 @@
     <string name="isnt_palindrome">It\'s not, Palindrome!</string>
     <string name="empty_palindrome">Palindrome can\'t empty.</string>
     <string name="empty_name">Name can\'t empty.</string>
+    <string name="secondScreen">Second Screen</string>
+    <string name="welcome">Welcome,</string>
+    <string name="user">Arnold</string>
+    <string name="selected_user_name">Selected User Name</string>
+    <string name="choose_user">Choose a User</string>
 </resources>
