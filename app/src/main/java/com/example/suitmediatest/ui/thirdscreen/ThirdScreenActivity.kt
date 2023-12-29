@@ -3,7 +3,6 @@ package com.example.suitmediatest.ui.thirdscreen
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,10 +14,7 @@ class ThirdScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityThirdScreenBinding
     private lateinit var adapter: UserAdapter
-
-    private val viewModel: ThirdScreenViewModel by lazy {
-        ViewModelProvider(this).get(ThirdScreenViewModel::class.java)
-    }
+    private lateinit var viewModel: ThirdScreenViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +32,13 @@ class ThirdScreenActivity : AppCompatActivity() {
         )
         binding.recyclerView.adapter = adapter
 
-        viewModel.getData().observe(this, Observer { userList ->
-            userList?.let {
-                adapter.updateData(it)
-            }
-        })
-
-        viewModel.getStatus().observe(this, Observer { apiStatus ->
-            updateProgress(apiStatus)
-        })
+        viewModel = ViewModelProvider(this).get(ThirdScreenViewModel::class.java)
+        viewModel.getData().observe(this) { response ->
+            adapter.updateData(response)
+        }
+        viewModel.getStatus().observe(this) { status ->
+            updateProgress(status)
+        }
     }
 
     private fun updateProgress(status: UserApi.ApiStatus) {
@@ -53,10 +47,12 @@ class ThirdScreenActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.networkError.visibility = View.GONE
             }
+
             UserApi.ApiStatus.SUCCESS -> {
                 binding.progressBar.visibility = View.GONE
                 binding.networkError.visibility = View.GONE
             }
+
             UserApi.ApiStatus.FAILED -> {
                 binding.progressBar.visibility = View.GONE
                 binding.networkError.visibility = View.VISIBLE

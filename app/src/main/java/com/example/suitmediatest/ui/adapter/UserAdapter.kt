@@ -1,23 +1,22 @@
 package com.example.suitmediatest.ui.adapter
 
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.suitmediatest.R
 import com.example.suitmediatest.databinding.ItemUserBinding
 import com.example.suitmediatest.model.User
 import com.example.suitmediatest.network.UserApi
+import com.example.suitmediatest.ui.secondscreen.SecondScreenActivity
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     private val data = mutableListOf<User>()
-
-    fun updateData(newData: List<User>) {
-        data.clear()
-        data.addAll(newData)
-        notifyDataSetChanged()
-    }
 
     class ViewHolder(
         private val binding: ItemUserBinding
@@ -32,8 +31,44 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
                 .placeholder(R.drawable.baseline_account_circle_24)
                 .error(R.drawable.baseline_broken_image_24)
                 .into(ivUser)
+
+            root.setOnClickListener {
+                val detailIntent = Intent(root.context, SecondScreenActivity::class.java)
+                detailIntent.putExtra(SecondScreenActivity.FULLNAME, user)
+                root.context.startActivity(
+                    detailIntent,
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(root.context as Activity)
+                        .toBundle()
+                )
+            }
         }
     }
+
+    fun updateData(newData: List<User>) {
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun getOldListSize(): Int {
+                return data.size
+            }
+
+            override fun getNewListSize(): Int {
+                return newData.size
+            }
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return data[oldItemPosition].id == newData[newItemPosition].id
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return data[oldItemPosition] == newData[newItemPosition]
+            }
+        })
+
+        diffResult.dispatchUpdatesTo(this)
+
+        data.clear()
+        data.addAll(newData)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -41,9 +76,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(data[position])

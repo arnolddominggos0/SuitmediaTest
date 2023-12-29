@@ -29,7 +29,7 @@ object UserApi {
         retrofit.create(UserApiService::class.java)
     }
 
-    enum class ApiStatus { LOADING, SUCCESS, FAILED}
+    enum class ApiStatus { LOADING, SUCCESS, FAILED }
 
     fun getUserUrl(avatar: String): String {
         return avatar
