@@ -8,16 +8,21 @@ import com.example.suitmediatest.R
 import com.example.suitmediatest.databinding.ActivityFirstScreenBinding
 import com.example.suitmediatest.ui.dialog.MainDialog
 import com.example.suitmediatest.ui.secondscreen.SecondScreenActivity
+import com.example.suitmediatest.ui.secondscreen.SharePreference
 
 class FirstScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFirstScreenBinding
+    private lateinit var sharepref: SharePreference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFirstScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        sharepref = SharePreference(this)
 
         binding.apply {
             btnCheck.setOnClickListener {
@@ -33,13 +38,15 @@ class FirstScreenActivity : AppCompatActivity() {
                     ).show()
                 }
             }
+
             btnNext.setOnClickListener {
                 val nameET = nameET.text.toString()
 
                 if (nameET.isNotEmpty()) {
                     val intent = Intent(this@FirstScreenActivity, SecondScreenActivity::class.java)
+                    sharepref.saveUsername(nameET)
                     intent.putExtra(
-                        SecondScreenActivity.USERNAME,
+                        SharePreference.KEY_USER_NAME,
                         nameET
                     )
                     startActivity(intent)

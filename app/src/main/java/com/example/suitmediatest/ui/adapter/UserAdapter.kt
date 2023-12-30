@@ -33,8 +33,9 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
                 .into(ivUser)
 
             root.setOnClickListener {
+                val fullName = "${user.first_name} ${user.last_name}"
                 val detailIntent = Intent(root.context, SecondScreenActivity::class.java)
-                detailIntent.putExtra(SecondScreenActivity.FULLNAME, user)
+                detailIntent.putExtra(SecondScreenActivity.FULLNAME, fullName)
                 root.context.startActivity(
                     detailIntent,
                     ActivityOptionsCompat.makeSceneTransitionAnimation(root.context as Activity)
@@ -63,10 +64,9 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
             }
         })
 
-        diffResult.dispatchUpdatesTo(this)
-
         data.clear()
         data.addAll(newData)
+        diffResult.dispatchUpdatesTo(this)
     }
 
 
